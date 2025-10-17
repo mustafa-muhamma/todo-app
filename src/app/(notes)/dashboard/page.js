@@ -1,8 +1,10 @@
 import NoteCard from "@/app/components/NoteCard";
 import Link from "next/link";
+import { getBaseUrl } from "../../../../lib/getBaseUrl";
 
 export default async function Dashboard() {
-    const data = await fetch('/api/notes')
+    const baseUrl = getBaseUrl()
+    const data = await fetch(baseUrl + '/api/notes')
     const res = await data.json()
     const notes = res.notes
     console.log(notes.notes);
