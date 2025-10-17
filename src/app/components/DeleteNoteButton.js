@@ -15,10 +15,9 @@ export default function DeleteNoteButton({ id }) {
         startTransition(async () => {
             const res = await DeleteNote(id);
 
-            // ✅ Revalidate and redirect manually on client
             if (res?.success) {
                 router.push("/dashboard");
-                router.refresh(); // optional — ensures updated data
+                router.refresh();
             } else {
                 alert(res?.message || "Failed to delete note");
             }

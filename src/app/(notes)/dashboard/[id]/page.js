@@ -2,7 +2,7 @@ import DeleteNoteButton from "@/app/components/DeleteNoteButton"
 
 const Note = async ({ params }) => {
     const { id } = params
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`)
+    const res = await fetch(`/api/notes/${id}`)
     const data = await res.json()
     const note = data.note
     console.log(note);

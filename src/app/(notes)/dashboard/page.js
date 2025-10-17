@@ -2,7 +2,7 @@ import NoteCard from "@/app/components/NoteCard";
 import Link from "next/link";
 
 export default async function Dashboard() {
-    const data = await fetch('http://localhost:3000/api/notes')
+    const data = await fetch('/api/notes')
     const res = await data.json()
     const notes = res.notes
     console.log(notes.notes);
