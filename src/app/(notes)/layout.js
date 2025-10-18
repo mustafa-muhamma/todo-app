@@ -1,6 +1,14 @@
+'use client'
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({ children }) {
+    const router = useRouter();
+    const handleLogOut = async () => {
+        await fetch("/api/logout");
+        router.push("/");
+    };
+
     return (
         <div className="min-h-screen flex bg-gray-100">
             {/* Sidebar */}
@@ -27,12 +35,12 @@ export default function DashboardLayout({ children }) {
                 </div>
 
                 <div className="border-t mt-8 pt-4">
-                    <Link
-                        href="/logout"
-                        className="block text-center py-2 px-4 rounded-lg text-red-500 hover:bg-red-50 transition"
+                    <button
+                        onClick={handleLogOut}
+                        className="block w-full text-center py-2 px-4 rounded-lg text-red-500 hover:bg-red-50 transition"
                     >
                         Logout
-                    </Link>
+                    </button>
                 </div>
             </aside>
 

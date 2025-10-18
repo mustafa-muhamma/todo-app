@@ -1,8 +1,9 @@
-'use client'
+"use client";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { userLogin } from "../../actions";
 import Link from "next/link";
+import GoogleLoginButton from "@/app/components/GoogleLoginButton";
 
 const Login = () => {
     const [isPending, startTransition] = useTransition();
@@ -14,9 +15,7 @@ const Login = () => {
 
         startTransition(async () => {
             const res = await userLogin(formData);
-
             if (res?.success) {
-                // optionally you can show a toast or save token here
                 router.push("/dashboard");
             } else {
                 alert(res?.message || "Invalid credentials");
@@ -34,29 +33,23 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email Address
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700">Email Address</label>
                         <input
                             type="email"
                             name="email"
-                            id="email"
                             placeholder="you@example.com"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                             required
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700">Password</label>
                         <input
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="••••••••"
-                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
                             required
                         />
                     </div>
@@ -70,6 +63,12 @@ const Login = () => {
                     </button>
                 </form>
 
+                <div className="flex items-center my-6">
+                    <div className="flex-grow border-t border-gray-300"></div>
+                    <span className="mx-4 text-gray-500 text-sm">OR</span>
+                    <div className="flex-grow border-t border-gray-300"></div>
+                </div>
+                <GoogleLoginButton />
                 <div className="mt-8 text-center text-sm">
                     <p className="text-gray-600">
                         Don’t have an account?
