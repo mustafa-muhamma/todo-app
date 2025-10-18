@@ -1,18 +1,14 @@
 import NoteCard from "@/app/components/NoteCard";
 import Link from "next/link";
 import { getBaseUrl } from "../../../../lib/getBaseUrl";
-
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-    const baseUrl = getBaseUrl();
-
     try {
+        const baseUrl = getBaseUrl();
         const res = await fetch(`${baseUrl}/api/notes`, { cache: "no-store" });
 
-        if (!res.ok) {
-            throw new Error(`Failed to fetch notes: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Failed to fetch notes: ${res.status}`);
 
         const data = await res.json();
         const notes = data?.notes || [];

@@ -4,11 +4,10 @@ import { getBaseUrl } from "../../../../../lib/getBaseUrl";
 export const dynamic = "force-dynamic";
 
 const Note = async ({ params }) => {
-    const { id } = params;
+    const { id } = await params;
     const baseUrl = getBaseUrl();
-
     try {
-        const res = await fetch(`/api/notes/${id}`, { cache: "no-store" });
+        const res = await fetch(`${baseUrl}/api/notes/${id}`, { cache: "no-store" });
 
         if (!res.ok) {
             throw new Error(`Failed to fetch note: ${res.status}`);
