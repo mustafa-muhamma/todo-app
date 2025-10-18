@@ -1,17 +1,20 @@
-import NoteCard from "@/app/components/NoteCard";
 import Link from "next/link";
-import { getBaseUrl } from "../../../../lib/getBaseUrl";
+import NoteCard from "@/app/components/NoteCard";
+import { connectDB } from "../../../../lib/mongodb";
+import Note from "../../../../models/noteModel";
+
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
     try {
-        const baseUrl = getBaseUrl();
-        const res = await fetch(`${baseUrl}/api/notes`, { cache: "no-store" });
-
-        if (!res.ok) throw new Error(`Failed to fetch notes: ${res.status}`);
-
-        const data = await res.json();
-        const notes = data?.notes || [];
+        await connectDB();
+        const notesData = await Note.find({}).sort({ createdAt: -1 }).lean();
+        const notes = notesData.map(note => ({
+            ...note,
+            _id: note._id.toString(),
+            createdAt: note.createdAt?.toISOString(),
+            updatedAt: note.updatedAt?.toISOString(),
+        }));
 
         return (
             <div className="min-h-screen flex bg-gray-100">
@@ -28,7 +31,7 @@ export default async function Dashboard() {
 
                     {notes.length > 0 ? (
                         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {notes.map((note) => (
+                            {notes.map(note => (
                                 <NoteCard key={note._id} note={note} />
                             ))}
                         </section>

@@ -1,28 +1,29 @@
 import DeleteNoteButton from "@/app/components/DeleteNoteButton";
-import { getBaseUrl } from "../../../../../lib/getBaseUrl";
+import { connectDB } from "../../../../../lib/mongodb";
+import NoteModel from "../../../../../models/noteModel";
 
 export const dynamic = "force-dynamic";
 
 const Note = async ({ params }) => {
     const { id } = await params;
-    const baseUrl = getBaseUrl();
     try {
-        const res = await fetch(`${baseUrl}/api/notes/${id}`, { cache: "no-store" });
+        await connectDB();
 
-        if (!res.ok) {
-            throw new Error(`Failed to fetch note: ${res.status}`);
-        }
+        const noteData = await NoteModel.findById(id).lean();
 
-        const data = await res.json();
-        const note = data?.note;
-
-        if (!note) {
+        if (!noteData) {
             return (
                 <div className="max-w-3xl mx-auto text-center mt-20 text-gray-500">
                     Note not found.
                 </div>
             );
         }
+        const note = {
+            ...noteData,
+            _id: noteData._id.toString(),
+            createdAt: noteData.createdAt?.toISOString(),
+            updatedAt: noteData.updatedAt?.toISOString(),
+        };
 
         return (
             <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
