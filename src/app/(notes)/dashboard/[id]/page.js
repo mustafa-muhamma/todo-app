@@ -8,7 +8,7 @@ const Note = async ({ params }) => {
     const baseUrl = getBaseUrl();
 
     try {
-        const res = await fetch(`${baseUrl}/api/notes/${id}`, { cache: "no-store" });
+        const res = await fetch(`/api/notes/${id}`, { cache: "no-store" });
 
         if (!res.ok) {
             throw new Error(`Failed to fetch note: ${res.status}`);
