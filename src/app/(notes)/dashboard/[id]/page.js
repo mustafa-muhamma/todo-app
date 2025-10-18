@@ -1,6 +1,6 @@
 import DeleteNoteButton from "@/app/components/DeleteNoteButton"
 import { getBaseUrl } from "../../../../../lib/getBaseUrl"
-
+export const dynamic = "force-dynamic";
 const Note = async ({ params }) => {
     const { id } = params
     const baseUrl = getBaseUrl()

@@ -1,7 +1,7 @@
 import NoteCard from "@/app/components/NoteCard";
 import Link from "next/link";
 import { getBaseUrl } from "../../../../lib/getBaseUrl";
-
+export const dynamic = "force-dynamic";
 export default async function Dashboard() {
     const baseUrl = getBaseUrl()
     const data = await fetch(baseUrl + '/api/notes')
