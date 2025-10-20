@@ -8,28 +8,6 @@ export default function GoogleLoginButton() {
     const [googleLoading, setGoogleLoading] = useState(false);
     const router = useRouter();
 
-
-    // const handleGoogleLogin = async () => {
-    //     try {
-    //         const result = await signInWithPopup(auth, provider);
-    //         const user = result.user;
-    //         const res = await fetch("/api/google-auth", {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({
-    //                 name: user.displayName,
-    //                 email: user.email,
-    //                 uid: user.uid,
-    //             }),
-    //         });
-
-    //         const data = await res.json();
-    //         console.log("Server Response:", data);
-    //     } catch (error) {
-    //         console.error("Google login error:", error);
-    //     }
-    // };
-
     const handleGoogleAuth = async () => {
         try {
             setGoogleLoading(true);
